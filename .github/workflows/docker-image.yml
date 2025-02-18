@@ -5,8 +5,8 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  cron:
-    '@daily'  # Runs at 00:00 daily
+  schedule:
+    - cron: '0 0 * * *'  # Runs at 00:00 daily
 
 jobs:
 
