@@ -9,14 +9,27 @@ on:
     - cron: '0 0 * * *'  # Runs at 00:00 daily
 
 jobs:
-
-  build:
-
+  build-and-push:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write  # Required to push to GitHub Container Registry
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag git-server:$(date -I)
-    - name: Build the Docker image with tag latest
-      run: docker build . --file Dockerfile --tag git-server:latest
+
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: ghcr.io/${{ github.actor }}/git-server-docker:latest
