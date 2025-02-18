@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  cron:
+    '@daily'  # Runs at 00:00 daily
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag git-server:$(date -I)
+    - name: Build the Docker image with tag latest
+      run: docker build . --file Dockerfile --tag git-server:latest
