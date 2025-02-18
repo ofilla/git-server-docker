@@ -7,6 +7,6 @@ services:
     ports:
       - "2222:22"
     volumes:
-    - ~/git-server/keys:/git-server/keys
-    - ~/git-server/repos:/git-server/repos
+    - ${GIT_SERVER_KEYS_DIR:-~/git-server/keys}:/git-server/keys:ro
+    - ${GIT_SERVER_REPO_DIR:-~/git-server/repos}:/git-server/repos
 
