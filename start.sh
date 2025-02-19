@@ -1,5 +1,13 @@
 #!/bin/sh
 
+_term() {
+  echo "Caught SIGTERM signal!"
+  kill -TERM "$child" 2>/dev/null
+}
+
+trap _term SIGTERM
+
+# generate host keys, if required
 ssh-keygen -A
 
 # If there are some public keys in keys folder
@@ -20,5 +28,7 @@ if [ "$(ls -A /git-server/repos/)" ]; then
   find /git-server/repos -type d -exec chmod g+s '{}' +
 fi
 
-# -D flag avoids executing sshd as a daemon
-/usr/sbin/sshd -D
+/usr/sbin/sshd -D &
+
+child=$!
+wait "$child"
