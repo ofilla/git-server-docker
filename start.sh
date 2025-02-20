@@ -28,7 +28,9 @@ if [ "$(ls -A /git-server/repos/)" ]; then
   find /git-server/repos -type d -exec chmod g+s '{}' +
 fi
 
-/usr/sbin/sshd -D &
+# -D: do not detach
+# -e: debug logs to standard error
+/usr/sbin/sshd -D -e &
 
 child=$!
 wait "$child"
