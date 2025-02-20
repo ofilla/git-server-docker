@@ -8,7 +8,7 @@ _term() {
 trap _term SIGTERM
 
 # generate host keys, if required
-ssh-keygen -A
+ssh-keygen -A -f /opt
 
 # If there are some public keys in keys folder
 # then it copies its contain in authorized_keys file

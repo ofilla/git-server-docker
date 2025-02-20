@@ -9,4 +9,8 @@ services:
     volumes:
     - ${GIT_SERVER_KEYS_DIR:-~/git-server/keys}:/git-server/keys:ro
     - ${GIT_SERVER_REPO_DIR:-~/git-server/repos}:/git-server/repos
+    - host_keys:/opt/etc/ssh
 
+volumes:
+  host_keys:
+    name: git-server-host-keys

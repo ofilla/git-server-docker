@@ -7,3 +7,8 @@ AllowUsers git
 X11Forwarding no
 AllowTcpForwarding no
 PermitTTY no
+
+# host keys at different path
+HostKey /opt/etc/ssh/ssh_host_rsa_key
+HostKey /opt/etc/ssh/ssh_host_ecdsa_key
+HostKey /opt/etc/ssh/ssh_host_ed25519_key

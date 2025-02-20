@@ -1,6 +1,7 @@
 FROM alpine:latest
 
 LABEL org.opencontainers.image.authors="Oliver Filla <https://github.com/ofilla>, Carlos Bernárdez <carlos@z4studios.com>"
+LABEL maintainer='Carlos Bernárdez <carlos@z4studios.com>'
 
 RUN apk add --no-cache openssh git
 
@@ -8,7 +9,10 @@ RUN apk add --no-cache openssh git
 # -s flag changes user's shell
 RUN adduser -D -s /usr/bin/git-shell git \
     && passwd -u git \
-    && mkdir -p /git-server/keys /git-server/repos ~git/.ssh
+    && mkdir -p /git-server/keys /git-server/repos /opt/etc/ssh ~git/.ssh
+
+WORKDIR /git-server/
+
 
 # This is a login shell for SSH accounts to provide restricted Git access.
 # It permits execution only of server-side Git commands implementing the
@@ -23,4 +27,5 @@ COPY start.sh start.sh
 
 EXPOSE 22
 
+VOLUME ["/git-server/keys", "/opt/etc/ssh", "/git-server/repos"]
 CMD ["sh", "start.sh"]

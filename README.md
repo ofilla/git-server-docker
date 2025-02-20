@@ -63,6 +63,7 @@ $ git clone ssh://git@<ip-docker-server>:2222/git-server/repos/myrepo.git
 * **Volumes**:
   * `/git-server/keys`: Volume to store the users public keys
   * `/git-server/repos`: Volume to store the repositories
+  * `/git-server/host-keys`: Volume to store the SSHd host keys
 
 ### SSH Keys
 
