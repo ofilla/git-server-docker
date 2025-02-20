@@ -7,6 +7,7 @@ RUN apk add --no-cache openssh git
 # -D flag avoids password generation
 # -s flag changes user's shell
 RUN adduser -D -s /usr/bin/git-shell git \
+    && passwd -u git \
     && mkdir -p /git-server/keys /git-server/repos ~git/.ssh
 
 # This is a login shell for SSH accounts to provide restricted Git access.

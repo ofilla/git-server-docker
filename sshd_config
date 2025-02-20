@@ -3,7 +3,7 @@ PermitRootLogin no
 PasswordAuthentication no
 AllowUsers git
 
-Match User git
-    X11Forwarding no
-    AllowTcpForwarding no
-    ForceCommand git-shell
+# other security measures
+X11Forwarding no
+AllowTcpForwarding no
+PermitTTY no
